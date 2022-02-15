@@ -7,4 +7,5 @@ const Clients = db.define('clients', {
     id: {type: DataTypes.INTEGER, allowNull: false, primaryKey: true}
 });
 
+
 module.exports = Clients;

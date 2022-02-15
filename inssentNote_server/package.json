@@ -4,16 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon src/app.js --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "build": "babel src --out-dir dist",
+    "start": "nodemon src/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "express": "^4.17.2",
-    "nodemon": "^2.0.15",
+    "morgan": "^1.10.0",
     "pg": "^8.7.3",
     "sequelize": "^6.16.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.0",
+    "@babel/core": "^7.17.2",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "nodemon": "^2.0.15"
   }
 }
