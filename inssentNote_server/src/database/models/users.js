@@ -6,9 +6,13 @@ const Notes = require('./notes');
 //models
 
 const Users = db.define('users', {
-    name: {type: DataTypes.STRING, allowNull: false},
-    position: {type: DataTypes.STRING, allowNull: false},
-    id: {type: DataTypes.INTEGER, allowNull: false, primaryKey: true}
+    first_name: { type: DataTypes.STRING, allowNull: false },
+    last_name: { type: DataTypes.STRING },
+    id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true },
+    role: { type: DataTypes.STRING, allowNull: false },
+    email: { type: DataTypes.STRING },
+    city: { type: DataTypes.STRING },
+    password: { type: DataTypes.TEXT }
 });
 
 //relations

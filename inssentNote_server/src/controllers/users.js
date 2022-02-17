@@ -7,20 +7,38 @@ const getAllUsers = (req, res) => {
     .catch(error => res.status(500).send(error));
 };
 const addUser = (req, res) => {
-    const { id, name, position } = req.body;
-    if (id && name && position) {
+    console.log(req.body)
+    const { 
+        first_name,
+        last_name,
+        id,
+        role,
+        email,
+        city,
+        password } = req.body;
+    if (typeof(id) !== 'number') return res.status(400).json({
+        error: 'the id must be a number'
+    });
+    if (id && first_name && id && role && password) {
         Users.findOrCreate({
             where: { id: id },
             defaults: {
+                first_name: first_name,
+                last_name: last_name,
                 id: id,
-                name: name,
-                position: position,
+                role: role, 
+                email: email, 
+                city: city,
+                password: password, 
             }
         })
         .then(newUser => {
             newUser[1] === true ?
             res.json({ new_user: newUser[0] }) :
-            res.send(`the user with id:${id} already exist`);
+            res.json({ 
+                error: "the user already exist", 
+                message: `the user with id:${id} already exist` 
+            });
         })
         .catch(err => {
             res.status(500).json({ error: err });
