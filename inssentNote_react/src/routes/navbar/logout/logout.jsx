@@ -7,7 +7,6 @@ const logout = () => {
   let request = AxiosInstance()
   request.get(`http://localhost:3000/users/logout`)
   .then(x => {
-    console.log('rr',x);
     localStorage.clear();
     navegate('/');
   })

@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import styles from "./loginForm.css";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router";
 import axios_credentials_head from "../../../../config/axios_credentials_head";
+import { userLoged } from "../../../../actions/users"
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -33,9 +33,12 @@ class LoginForm extends React.Component {
         alert('User Not Found.');
         this.setState({email:'', password:''});
       } else {
+        console.log(response)
         localStorage.setItem('auth', 'true');
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('sessionID', response.data.sessionID);
+        localStorage.setItem('userID', response.data.user.id)
+        this.props.userLoged(response.data.user);//add user info into redux state
         this.setState({change: true})
       };
     })
@@ -71,4 +74,10 @@ class LoginForm extends React.Component {
   }
 };
 
-export default connect(null, {  })(LoginForm)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveUser: (user) => { dispatch(userLoged(user)) }
+  }
+};
+
+export default connect(null, { userLoged })(LoginForm)

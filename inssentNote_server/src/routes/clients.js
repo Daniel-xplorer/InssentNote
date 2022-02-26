@@ -1,9 +1,10 @@
-const { getAllClients, addClient, deleteClient, deleteAll } = require('../controllers/clients');
+const { getAllClients, addClient, deleteClient, deleteAll, getAllClientsByUser } = require('../controllers/clients');
 
 
 const router = require('express').Router();
 
 router.get('/', getAllClients);
+router.get('/get_all/:userId', getAllClientsByUser);
 router.post('/add_client/:userId', addClient);
 router.delete('/delete_client/:clientId', deleteClient);
 

@@ -6,12 +6,10 @@ import axios from "axios";
 //para el navegador
 export default function() {
   const token = localStorage.getItem('token');
-  console.log(token)
   let auth;
   if (token) {
     auth = {'authorization': `Bearer ${token}`};
   };
-  console.log(auth)
   const AxiosInstance = axios.create({
     withCredentials: true,
     headers: auth

@@ -33,7 +33,10 @@ server.use(express.json());//bodyparser
 server.use(session({
     secret: 'secret',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        maxAge: parseInt(process.env.MAX_SESSION_AGE)
+    }
 }));
 
 
@@ -42,11 +45,11 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 // Middleware para mostrar la sesión actual en cada request
-server.use((req, res, next) => {
-    console.log('user:');
-    console.log(req.user);
-    next();
-});
+// server.use((req, res, next) => {
+//     console.log('user:');
+//     console.log(req.user);
+//     next();
+// });
 
 // Rutas:
 

@@ -11,7 +11,7 @@ const Users = db.define('users', {
     last_name: { type: DataTypes.STRING },
     id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true },
     role: { type: DataTypes.STRING, allowNull: false },
-    email: { type: DataTypes.STRING, validate: {
+    email: { type: DataTypes.STRING, unique: true, validate: {
         isEmail: true
     } },
     city: { type: DataTypes.STRING },

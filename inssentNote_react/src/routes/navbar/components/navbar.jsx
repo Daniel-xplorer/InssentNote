@@ -17,7 +17,7 @@ const Navbar = (props) => {
             </ul>
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li className="nav-item active">
-                    <Link className="nav-link" to="notes">Notes</Link>
+                    <Link className="nav-link" to="/notes">Notes</Link>
                 </li>
             </ul>
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">

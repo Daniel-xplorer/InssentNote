@@ -5,8 +5,8 @@ const router = require("express").Router();
 
 //las acciones para cada peticion se enviara a una funcion en controllers
 router.get('/', getAllUsers);
-router.get('/data', getUserData);
-router.post('/add_user', addUser);
+router.get('/data', isAuthenticated, getUserData);
+router.post('/add_user', isNotAuthenticated, addUser);
 router.delete('/delete_user/:userId', isAuthenticated, deleteUser);
 router.post('/login', isNotAuthenticated, logInUser);
 router.get('/logout', isAuthenticated, logout)

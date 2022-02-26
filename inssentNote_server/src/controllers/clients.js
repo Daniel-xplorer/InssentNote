@@ -1,4 +1,5 @@
-const Clients = require("../database/models/clients")
+const Clients = require("../database/models/clients");
+const Notes = require("../database/models/notes");
 const Users = require("../database/models/users")
 
 
@@ -10,38 +11,54 @@ const getAllClients = (req, res) => {
         res.status(500).json(err)
     })
 };
+const getAllClientsByUser = (req, res) => {
+    const userId = req.params.userId;
+    Clients.findAll({
+        where: {
+            userId: userId
+        },
+        include: Notes
+    })
+    .then(x => {
+        res.send(x)
+    }, err => {
+        console.log(err)
+        res.status(500).json(err)
+    })
+};
 const addClient = (req, res) => {
     const userId = req.params.userId;
-    const { name, id } = req.body;
-    if (userId) {
-        Users.findByPk(userId)
-            .then(user => {
-                if (user) {
-                    if (name && id) {
-                        Clients.create({
-                            name: name,
-                            id: id
-                        })
-                        .then((newClient) => {
-                            console.log('cliente creado')
-                            user.addClient(newClient).then(x => {
-                                return res.send(newClient.name);
-                            });
-                        })
-                        .catch(err =>{
-                            err.original.code == '23505' ?
-                            res.status(400).json({error: 'the client already exist', code: '23505'}) :
-                            res.status(500).json({error: err})
-                        });
-                    } else {
-                        res.status(400).json({ error: "name or id was not pased" });
-                    };
-                } else {
-                    res.status(400).json({error: 'the user do not exist'});
-                }
-            })
-            .catch(err => res.send(400, err));
-    }
+    const { firstName, lastName, id, processType } = req.body;
+    Users.findByPk(userId)
+    .then(user => {
+        if (user) {
+            if (firstName, id) {
+                Clients.create({
+                    id: id,
+                    firstName: firstName,
+                    lastName: lastName,
+                    processType: processType
+                })
+                .then((newClient) => {
+                    console.log('cliente creado')
+                    user.addClient(newClient).then(x => {
+                        return res.send(newClient);
+                    });
+                })
+                .catch(err =>{
+                    console.log(err)
+                    err.original && err.original.code == '23505' ?
+                    res.status(400).json({error: 'the client already exist', code: '23505'}) :
+                    res.status(500).json({error: err})
+                });
+            } else {
+                res.status(400).json({ error: "name or id was not pased" });
+            };
+        } else {
+            res.status(400).json({error: 'the user do not exist'});
+        }
+    })
+    .catch(err => res.send(400, err));
 };
 const deleteClient = (req, res) => {
     const clientId = req.params.clientId;
@@ -86,6 +103,7 @@ const deleteAll = async (rew, res) => {
 
 module.exports = {
     getAllClients,
+    getAllClientsByUser,
     addClient,
     deleteClient,
     deleteAll

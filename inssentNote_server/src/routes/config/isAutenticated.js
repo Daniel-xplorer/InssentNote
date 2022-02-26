@@ -23,7 +23,7 @@ function isAuthenticated(req, res, next) {
   }
 };
 function isNotAuthenticated(req, res, next) {
-  if (req.headers.authorization && req.authorization()) {
+  if (req.headers.authorization && req.isAuthenticated()) {
     res.status(500).json({ error: 'The User Is Actually Logged' })
   } else {
     next()

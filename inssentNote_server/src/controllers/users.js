@@ -11,8 +11,8 @@ const getAllUsers = (req, res) => {
     .catch(error => res.status(500).send(error));
 };
 const getUserData = (req, res) => {
-    const id = req.body.id;
-    const keys = req.body.params
+    const id = req.query.id;
+    const keys = req.query.info;
     Users.findOne({
         where: {id: id}
     })
@@ -23,8 +23,8 @@ const getUserData = (req, res) => {
             let value = user[name];
             Object.defineProperty(object, name, {
                 value: value, enumerable: true,
-                writable: false, 
-                configurable: false
+                writable: true, 
+                configurable: true
             });
             console.log('i',object);
         };
@@ -66,6 +66,8 @@ const addUser = (req, res) => {
                 })
                 .then(newUser => {
                     newUser[1] === true ?
+                    //cambiar la contrseña (se debe filtrar para no enviarla)
+                    newUser.password = 'payasito' && 
                     res.json({ new_user: newUser[0] }) :
                     res.json({ 
                         error: "the user already exist", 

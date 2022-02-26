@@ -1,13 +1,15 @@
-import axios from "axios";
-import { Navigate, useNavigate } from "react-router";
+
+import axiosModified from "../config/axios_credentials_head"
 
 export const add_user = 'ADD_USER';
 export const log_user = 'LOG_USER';
 export const get_data_user = 'GET_DATA';
+export const user_logged = 'USER_LOGGED'
 
+const Axios = axiosModified()
 export function addUser(user) {
   return (dispatch) => {
-    return axios.post(`http://localhost:3000/users/add_user`, {
+    return Axios.post(`http://localhost:3000/users/add_user`, {
       first_name: user.name,
       last_name: user.lastName,
       id: parseInt(user.document),
@@ -28,17 +30,23 @@ export function addUser(user) {
     });
   };
 };
-export function getData(user) {
+export function getData(userData) {//por userData se para el id, y los datos que pediremos del servidor
   return (dispatch) => {
-    return axios.get(`http://localhost:3000/user/data`, user)
+    return Axios.get(`http://localhost:3000/users/data`, {params: userData})
     .then(data => {
       dispatch({
         type: get_data_user,
-        payload: data
+        payload: data.data
       });
     })
     .catch(err => {
       console.log(err);
     })
   }
+};
+export function userLoged(user) {
+  return {
+    type: user_logged,
+    payload: user
+  };
 };

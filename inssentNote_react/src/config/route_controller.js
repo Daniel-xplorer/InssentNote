@@ -4,7 +4,6 @@ import { Navigate } from 'react-router-dom';
 
 
 function RouteController (props) {
-  
   const { Component } = props;
   const [auth, setAuth] = useState(localStorage.getItem('auth'));
   useEffect(()=> {
