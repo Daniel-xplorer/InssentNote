@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import detalles from "./navbar.css";
 
 const Navbar = (props) => {
-
     return(
         <nav className="container d-flex justify-content-center navbar navbar-expand-lg navbar-light bg-light ">
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +17,7 @@ const Navbar = (props) => {
             </ul>
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li className="nav-item active">
-                    <Link className="nav-link" to="notes">Notes</Link>
+                    <Link className="nav-link" to="/notes">Notes</Link>
                 </li>
             </ul>
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -28,7 +27,7 @@ const Navbar = (props) => {
             </ul>
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li className="nav-item active">
-                    <Link className="nav-link" to="logOut">Log Out</Link>{/*crear el log out*/}
+                    <Link className="nav-link" to="/logout">Logout</Link>{/*crear el log out*/}
                 </li>
             </ul>
             <form id={detalles.form} className="form-inline my-2 my-lg-0">

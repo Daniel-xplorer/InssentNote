@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
-import users from "./users"
-import prueba from "./prueba"
+import users from "./users";
+import prueba from "./prueba";
+import clients from "./clients";
 
 
 export default combineReducers({
   users,
-  prueba
+  clients
 });

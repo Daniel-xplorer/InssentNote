@@ -5,7 +5,8 @@ module.exports = {
     entry: path.join(__dirname,'src','index.jsx'),
     output: {
         path: __dirname + '/dist',
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: '/'
     },
     mode: process.env.NODE_ENV || 'development',
     module: {
@@ -16,7 +17,10 @@ module.exports = {
             use: {
             loader: 'babel-loader',
             options: {
-                presets: [['@babel/preset-react', {"runtime": "automatic"}], '@babel/preset-env']
+                presets: [['@babel/preset-react', {"runtime": "automatic", "throwIfNamespace": false}], '@babel/preset-env'],
+                plugins: [
+                    ["@babel/plugin-transform-runtime"]
+                ]
             }
             }
         },
@@ -47,6 +51,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.json', '.jsx'],
+    },
+    devServer: {
+        historyApiFallback: true
     },
     plugins: [
         new HtmlWebpackPlugin({
